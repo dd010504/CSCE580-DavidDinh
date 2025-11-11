@@ -4,7 +4,7 @@ Student: David Dinh
 Date: Nov 11, 2025  
 Folder: `Quiz3/`
 
-
+KEY: (E) = CONTAINS IN. i dont know how to write contains in. 
 -----------
 
  Q1: Search and Heuristics
@@ -12,12 +12,12 @@ Folder: `Quiz3/`
 a) What is an admissible heuristic?  
 - A heuristic \(h(n)\) is admissible if it never overestimates the true cost to the goal.
 - Formally: \(h(n) \leq h^*(n)\) for every node \(n\), where \(h^*(n)\) is the actual optimal cost from \(n\) to a goal.
-- Intuition: it is optimistic.
+- Intuition: it is optimistic but idk.
 ---------------------------------------------------------------------------------------
 b) Suppose you are given `h = 0` as the heuristic. Is it admissible?  
 - Yes.
 - Because 0 can never be greater than the true cost.
-- This is basically Uniform-Cost Search / Dijkstra.
+- This is basically Uniform-Cost Search / Dijkstra lmfao.
 ---------------------------------------------------------------------------------------
 c) Suppose you are given `h = k` where `k` is any fixed number (e.g. 1). Is it admissible?  
 - Not always.
@@ -33,7 +33,7 @@ d) Given 3 heuristics `h1, h2, h3`, one of which is admissible:
 ---------------------------------------------------------------------------------------
 ---
 
- Q2: Missionaries and Cannibals
+ Q2: Missionaries and Cannibals CHECK CODE 
 
 The problem: move M missionaries and C cannibals from left bank to right bank with a 1–2 person boat, never letting cannibals outnumber missionaries on a nonzero side.
 
@@ -66,7 +66,7 @@ Q3: Cryptarithm CSP Formulation
 --------
   F O U R
 ```
-
+--------------------------------------------------------------------------------------------------------------
  a) Variables, Domains, and Constraints
 
 Variables:  
@@ -76,7 +76,7 @@ Domains:
 - `T (E) {1–9}` (cannot be 0 because it's a leading digit)  
 - `F (E) {1–9}` (leading digit of result)  
 - `W, O, U, R (E) {0–9}`  
-- All values must be distinct (AllDifferent constraint)
+- All values must be distinct (All Different constraint)
 
 Constraints:  
 1. Column 1 (units): `0 + 0 = R` -> R = 0  
@@ -84,6 +84,7 @@ Constraints:
 3. Column 3 (hundreds): `T + T + c1 = O + 10*c2` -> 2T + c1 = O + 10*c2, `c2 (E) {0,1}`  
 4. Column 4 (thousands): `F = c2`  
 5. AllDifferent(T, W, F, O, U, R)
+--------------------------------------------------------------------------------------------------------------
 
  b) Using Node/Arc Consistency (Simplification)
 
@@ -115,5 +116,3 @@ Even if a full solution is not derived, consistency pruning simplifies the CSP s
 ---
 
 
-
-Each file corresponds to the respective quiz parts.

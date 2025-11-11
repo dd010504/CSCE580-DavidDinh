@@ -143,16 +143,16 @@ class MCAgent:
         """
         Default: BFS to match the provided tester notebook.
         """
-        result = self._bfs(initial_missionaries, initial_cannibals)
+        result = self._bfs(initial_missionaries, initial_cannibals) # BFS search
         if result is None:
             return []
-        return self._reconstruct_moves(result)
+        return self._reconstruct_moves(result) # return the list of moves
 
     def solve_with_dfs(self, initial_missionaries, initial_cannibals):
         """
         Extra method to show a different search strategy.
         """
-        result = self._dfs(initial_missionaries, initial_cannibals)
+        result = self._dfs(initial_missionaries, initial_cannibals) # DFS search
         if result is None:
-            return []
-        return self._reconstruct_moves(result)
+            return [] # no solution
+        return self._reconstruct_moves(result) # return the list of moves
