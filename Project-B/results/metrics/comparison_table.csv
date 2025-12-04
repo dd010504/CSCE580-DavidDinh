@@ -1,0 +1,4 @@
+Model,Accuracy,F1 Score
+Fine-Tuned,0.868,0.8625
+Base,0.532,0.0
+Classical,0.892,0.88412
