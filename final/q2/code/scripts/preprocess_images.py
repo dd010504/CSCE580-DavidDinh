@@ -1,50 +1,52 @@
 import os
-import cv2  # OpenCV
-import shutil
+import cv2
 
-# Paths
-RAW_DIR = "../raw_images"
-PROCESSED_DIR = "../processed_images"
+# --- CONFIGURATION ---
+# Input folder containing your renamed images (class_01.jpg, etc.)
+INPUT_DIR = "raw_images"
+# Output folder for the clean, resized images
+OUTPUT_DIR = "processed_images"
+# Target width in pixels (Standardizes size for any potential model)
+TARGET_WIDTH = 1024
 
-# Create processed directory if it doesn't exist
-if not os.path.exists(PROCESSED_DIR):
-    os.makedirs(PROCESSED_DIR)
+def main():
+    # 1. Create Output Directory if it doesn't exist
+    if not os.path.exists(OUTPUT_DIR):
+        os.makedirs(OUTPUT_DIR)
+        print(f"Created output directory: {OUTPUT_DIR}")
 
-def preprocess_images():
-    # Get all files
-    files = [f for f in os.listdir(RAW_DIR) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
-    files.sort()  # Sort to keep order consistent
+    # 2. Get list of images
+    # We look for .jpg, .jpeg, .png
+    files = [f for f in os.listdir(INPUT_DIR) if f.lower().endswith(('.jpg', '.jpeg', '.png'))]
+    files.sort() # Ensure we process in order (class_01, class_02...)
+    
+    print(f"Found {len(files)} images in '{INPUT_DIR}'")
 
-    print(f"Found {len(files)} images.")
-
-    for i, filename in enumerate(files):
-        img_path = os.path.join(RAW_DIR, filename)
-        img = cv2.imread(img_path)
-
+    for filename in files:
+        input_path = os.path.join(INPUT_DIR, filename)
+        output_path = os.path.join(OUTPUT_DIR, filename)
+        
+        # 3. Read Image
+        img = cv2.imread(input_path)
+        
         if img is None:
-            print(f"Warning: Could not read {filename}")
+            print(f"[WARNING] Could not read {filename}. Skipping.")
             continue
-
-        # 1. Resize if too large (LLMs/Vision models often choke on 4k+ images)
-        # We limit max dimension to 1024px or 2048px to save speed/memory
+            
+        # 4. Resize Logic
+        # Calculate new height to maintain aspect ratio
         height, width = img.shape[:2]
-        max_dim = 1500 
+        scale_factor = TARGET_WIDTH / float(width)
+        new_height = int(height * scale_factor)
         
-        if max(height, width) > max_dim:
-            scale_factor = max_dim / float(max(height, width))
-            new_width = int(width * scale_factor)
-            new_height = int(height * scale_factor)
-            img = cv2.resize(img, (new_width, new_height), interpolation=cv2.INTER_AREA)
-
-        # 2. Optional: Grayscale (Good for simple OCR, maybe skip for LLaVA if color matters)
-        # gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
-        # 3. Rename systematically (e.g., class_01.jpg, class_02.jpg)
-        new_filename = f"class_{i+1:02d}.jpg"
-        save_path = os.path.join(PROCESSED_DIR, new_filename)
+        # Resize using INTER_AREA (best for shrinking)
+        img_resized = cv2.resize(img, (TARGET_WIDTH, new_height), interpolation=cv2.INTER_AREA)
         
-        cv2.imwrite(save_path, img)
-        print(f"Processed: {filename} -> {new_filename}")
+        # 5. Save Processed Image
+        cv2.imwrite(output_path, img_resized)
+        print(f"[OK] Processed: {filename} ({width}x{height} -> {TARGET_WIDTH}x{new_height})")
+
+    print("\nPreprocessing complete. Images are ready in 'processed_images/'.")
 
 if __name__ == "__main__":
-    preprocess_images()
+    main()
