@@ -3,9 +3,9 @@ import cv2
 
 # --- CONFIGURATION ---
 # Input folder containing your renamed images (class_01.jpg, etc.)
-INPUT_DIR = "raw_images"
+INPUT_DIR = "../raw_images"
 # Output folder for the clean, resized images
-OUTPUT_DIR = "processed_images"
+OUTPUT_DIR = "../processed_images"
 # Target width in pixels (Standardizes size for any potential model)
 TARGET_WIDTH = 1024
 

@@ -3,9 +3,9 @@ import re
 
 # --- CONFIGURATION ---
 # Ensure your manual attendance file is renamed to this
-ATTENDANCE_FILE = 'attendance_data.csv'
+ATTENDANCE_FILE = '../data/attendance_data.csv'
 # Ensure your roster file is renamed to this
-ROSTER_FILE = 'roster.csv'
+ROSTER_FILE = '../data/roster.csv'
 
 def main():
     print("--- Starting Attendance Audit ---")
