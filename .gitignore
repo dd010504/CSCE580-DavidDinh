@@ -2,3 +2,17 @@
 __pycache__/
 .ipynb_checkpoints/
 .vscode/
+Project-B/data/
+Project-B/venv
+Quiz2/
+Quiz3/
+venv/
+__pycache__/
+*.DS_Store
+# Ignore heavy model files
+*.safetensors
+*.pt
+*.pth
+*.bin
+*.pkl
+
